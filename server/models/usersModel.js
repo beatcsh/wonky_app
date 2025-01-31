@@ -1,0 +1,26 @@
+import { Schema, model } from "mongoose";
+
+const usersSchema = new Schema([
+    { "name": { type: String, required: true } },
+    { "apePat": { type: String, required: true } },
+    { "apeMat": { type: String, required: true } },
+    { "email": { type: String, required: true } },
+    { "password": { type: String, required: true } },
+    { "numberPhone": { type: Number, required: true } },
+    {
+        "address": {
+            "streetName": { type: String, required: true },
+            "subdivision": { type: String, required: true },
+            "number": { type: Number, required: true }
+        }
+    },
+    {
+        "emerContact": {
+            "name": { type: String, required: true },
+            "email": { type: String, required: true },
+            "numberPhone": { type: Number, required: true }
+        }
+    }
+])
+
+export const userModel = new model('users', usersSchema)
