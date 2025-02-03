@@ -13,4 +13,4 @@ const zoneSchema = new Schema({
 // Índice geoespacial para consultas eficientes
 // zoneSchema.index({ location: "2dsphere" });
 
-export default model("zones", zoneSchema);
+export const zoneModel = new model("zones", zoneSchema);

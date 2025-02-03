@@ -6,4 +6,4 @@ const sessionSchema = new Schema({
     createdAt: { type: Date, default: Date.now, expires: "1d" } 
 });
 
-export default model("sessions", sessionSchema);
+export const sessionModel = new model("sessions", sessionSchema);

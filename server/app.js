@@ -2,6 +2,7 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import express from 'express'
+import zoneRoutes from './routes/zoneRoutes.js'
 
 dotenv.config()
 
@@ -10,6 +11,9 @@ mongoose.connect(process.env.url)
     .catch((err) => console.log('no se pudo conectar', err))
 
 const app = express()
+app.use(express.json())
 app.use(cors())
 
-app.listen((4000, () => console.log('funciona')))
+app.use("/zones", zoneRoutes)
+
+app.listen(4000, () => console.log('Funciona'));
