@@ -15,9 +15,9 @@ const userSchema = new Schema({
     },
 
     emerContact: {
-        name: { type: String, required: true },
-        email: { type: String, required: true },
-        numberPhone: { type: String, required: true }
+        name: { type: String },
+        email: { type: String },
+        numberPhone: { type: String }
     }
 });
 
