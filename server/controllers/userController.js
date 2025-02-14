@@ -66,6 +66,34 @@ export default {
             return res.status(500).json({ "msg": "problema de servidor" })
         }
     },
+    addContact: async (req, res) => {
+        try {
+
+            const id_user = req.query._id
+            const user = await userModel.findById({ id_user })
+            if (!user) return res.status(400).json({ "msg": "no se encuentra al usuario" })
+            
+            const { name, email, numberPhone } = req.body
+            if (!name || !email || !numberPhone) return res.status(400).json({ "msg": "error con una de las entradas" })
+            
+            const emerContact = {
+                name: name,
+                email: email,
+                numberPhone: numberPhone
+            }
+
+            await userModel.findByIdAndUpdate(id_user, {
+                $push: {
+                    "emerContact": emerContact
+                }
+            })
+
+            return res.status(200).json({ "msg": "todo bien se agrego el contacto de emergencia" })
+
+        } catch (err) {
+            return res.status(500).json({ "msg": "problema de servidor" })
+        }
+    },
     getUsers: async (req, res) => {
         try {
 
@@ -80,7 +108,7 @@ export default {
         try {
 
             const id_user = req.query._id
-            const user = await userModel.findOne({ _id: id_user })
+            const user = await userModel.findById(id_user)
 
             return res.status(200).json(user)
 
