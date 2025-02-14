@@ -14,11 +14,7 @@ const userSchema = new Schema({
         number: { type: Number, required: true }
     },
 
-    emerContact: {
-        name: { type: String },
-        email: { type: String },
-        numberPhone: { type: String }
-    }
+    emerContact: []
 });
 
 export const userModel = new model("users", userSchema);
