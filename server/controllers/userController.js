@@ -143,5 +143,16 @@ export default {
             console.log(err)
             return res.status(500).json({ "msg": "problema de servidor" })
         }
+    },
+    getUsers2: async (req, res) => {
+        try {
+
+            const users = await userModel.find()
+            res.status(200).json(users)
+
+        }  catch (err) {
+            console.log(err)
+            return res.status(500).json({ "msg": "problema de servidor" })
+        }
     }
 }
