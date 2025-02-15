@@ -70,7 +70,7 @@ export default {
         try {
 
             const id_user = req.query._id
-            const user = await userModel.findById({ id_user })
+            const user = await userModel.findById( id_user )
             if (!user) return res.status(400).json({ "msg": "no se encuentra al usuario" })
             
             const { name, email, numberPhone } = req.body
@@ -91,6 +91,7 @@ export default {
             return res.status(200).json({ "msg": "todo bien se agrego el contacto de emergencia" })
 
         } catch (err) {
+            console.log(err)
             return res.status(500).json({ "msg": "problema de servidor" })
         }
     },
@@ -140,17 +141,6 @@ export default {
             return res.status(200).json({ "msg": "login exitoso", token })
 
         } catch (err) {
-            console.log(err)
-            return res.status(500).json({ "msg": "problema de servidor" })
-        }
-    },
-    getUsers2: async (req, res) => {
-        try {
-
-            const users = await userModel.find()
-            res.status(200).json(users)
-
-        }  catch (err) {
             console.log(err)
             return res.status(500).json({ "msg": "problema de servidor" })
         }
