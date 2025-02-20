@@ -32,5 +32,17 @@ export default {
         } catch (err) {
             return res.status(500)({ "msg": "problema de servidor" })
         }
+    },
+    getZone: async (req, res) => {
+        try {
+
+            const id_zone = req.query._id
+            const zone = await zoneModel.findById(id_zone)
+
+            return res.status(200).json(zone)
+
+        }  catch (err) {
+            return res.status(500).json({ "msg": "problema de servidor" })
+        }
     }
 }
