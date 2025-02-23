@@ -18,7 +18,7 @@ export default {
 
             await zoneModel.create(newReport)
             return res.status(200).json({ "msg": "se levanto el reporte" })
-
+ 
         } catch (err) {
             return res.status(500)({ "msg": "problema de servidor" })
         }
