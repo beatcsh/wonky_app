@@ -1,5 +1,4 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
 import { Button } from 'react-bootstrap';
 
 const Home: React.FC = () => {
@@ -16,7 +15,6 @@ const Home: React.FC = () => {
             <IonTitle size="large">Blank</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer />
         <Button className="text-4xl font-bold text-blue-400" variant="primary" size="lg">
           Large button
         </Button>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useHistory } from "react-router";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 import axios from "axios";
 
 const Login: React.FC = () => {
@@ -14,18 +14,9 @@ const Login: React.FC = () => {
 
     const onSubmit = async () => {
         try {
-            // Swal.fire({
-            //     title: "Estamos mandando tu información",
-            //     allowOutsideClick: false,
-            //     didOpen: () => {
-            //         Swal.showLoading();
-            //     }
-            // });
             console.log("mandando datos")
 
             const response = await axios.post("http://localhost:4000/users/login", data);
-
-            // await Swal.fire("Inicio de sesión exitoso", "Bienvenido de nuevo", "success");
             console.log("se pudo")
 
             const authToken = response.data.token;
@@ -33,7 +24,6 @@ const Login: React.FC = () => {
             history.push("/home",{ token: authToken })
 
         } catch (err: any) {
-            // await Swal.fire("Error al iniciar sesión", err.response?.data?.msg || "Algo salió mal", "error");
             console.log("no se pudo")
         }
     };
