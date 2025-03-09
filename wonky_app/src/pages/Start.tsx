@@ -9,7 +9,7 @@ const Start: React.FC = () => {
                     <div className="w-[170px]">
                         <BotonEmergencia />
                     </div>
-                    <h1 className="text-3xl font-bold">SafeGirl</h1>
+                    <h1 className="text-3xl font-bold">WonkyApp</h1>
                 </div>
                 <div className="w-full flex flex-row justify-center space-x-4 my-2">
                     <a href="/login"><button className="w-[125px] h-[35px] !rounded-xl font-bold mx-3 bg-blue-400 text-white">Iniciar Sesion</button></a>
