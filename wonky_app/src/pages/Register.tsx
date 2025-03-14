@@ -30,36 +30,46 @@ const Register: React.FC = () => {
             number: 0
         }
     })
+
     const [confirmPass, setConfirmPass] = useState<string>("");
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
-        const data_temp: any = data;
-        data_temp[e.target.name] = e.target.value;
-        setData(data_temp);
+        const { name, value } = e.target;
+
+        if (["streetName", "subdivision", "number"].includes(name)) {
+            setData(prevData => ({
+                ...prevData,
+                address: {
+                    ...prevData.address,
+                    [name]: name === "number" ? parseInt(value) : value,
+                }
+            }));
+        } else {
+            setData(prevData => ({
+                ...prevData,
+                [name]: value
+            }));
+        }
     }
 
     const onSubmit = async () => {
         if (data.password !== confirmPass) {
-            Swal.fire("Error", "Tus contraseñas no coinciden", "error");
+            alert("No coinciden tus contraseñas")
             return
         }
         try {
-            console.log(data);
-            Swal.fire("Enviando datos");
-            Swal.showLoading();
-            await axios.post("http://localhost:5000/users/add", data)
-            Swal.fire("Si funciona el register", "funciono", "success")
-            history.push("/")
+            await axios.post("http://localhost:4000/users/add", data)
+            alert("Registro exitoso")
+            history.push("/login")
         } catch (err: any) {
-            Swal.fire("Error al iniciar sesion", err.response.data.msg, "error")
+            alert("No se pudo")
         }
     }
 
     return (
         <>
             <div className="w-[100%] h-screen overflow-y-auto bg-gray-900 grid grid-cols-1 place-items-center py-10">
-                {/* aqui iria el de emergencia */}
                 <h2 className="font-bold">Ingresa tus datos</h2>
                 <div className="w-[100%] grid place-items-center">
                     <input
@@ -85,7 +95,7 @@ const Register: React.FC = () => {
                     />
                     <input
                         type="email"
-                        name="name"
+                        name="email"
                         onChange={onChange}
                         placeholder="Email"
                         className="!my-3 w-[80%] h-[50px] !rounded-lg bg-white border p-2 !text-black placeholder-gray-700"
@@ -105,6 +115,7 @@ const Register: React.FC = () => {
                     />
                     <input
                         type="text"
+                        name="numberPhone"
                         onChange={onChange}
                         placeholder="Telefono"
                         className="!my-3 w-[80%] h-[50px] !rounded-lg bg-white border p-2 !text-black placeholder-gray-700"
