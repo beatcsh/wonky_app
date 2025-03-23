@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 
 const zoneSchema = new Schema({
-    dangerLevel: { type: String, required: true, enum: ["low", "medium", "high"] },
+    danger_level: { type: String, required: true, enum: ["low", "medium", "high"] },
     description: { type: String, required: true },
 
     location: {

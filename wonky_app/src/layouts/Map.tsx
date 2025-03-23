@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const mapContainerStyle = {
     width: '90%',
-    height: '500px',
+    height: '300px',
     borderRadius: '15px',
 };
 
@@ -18,7 +18,7 @@ interface Zone {
     location: {
         coordinates: number[];
     };
-    dangerLevel: string;
+    danger_level: string;
     description: string;
 }
 
@@ -70,7 +70,7 @@ const Map: React.FC = () => {
                             lat: zone.location.coordinates[1],
                             lng: zone.location.coordinates[0],
                         }}
-                        icon={dangerIcons[zone.dangerLevel] || dangerIcons.default}
+                        icon={dangerIcons[zone.danger_level] || dangerIcons.default}
                         onClick={() => setSelectedZone(zone)}
                     />
                 ))}
@@ -83,7 +83,7 @@ const Map: React.FC = () => {
                         onCloseClick={() => setSelectedZone(null)}
                     >
                         <div>
-                            <h4>Nivel de Peligro: {selectedZone.dangerLevel}</h4>
+                            <h4>Nivel de Peligro: {selectedZone.danger_level}</h4>
                             <p>{selectedZone.description}</p>
                         </div>
                     </InfoWindow>

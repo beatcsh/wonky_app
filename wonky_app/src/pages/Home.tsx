@@ -2,12 +2,14 @@ import { IonTabButton } from '@ionic/react';
 import { useState } from 'react';
 import { useHistory } from 'react-router';
 import Map from '../layouts/Map';
+import Report from '../layouts/Report';
+import Header from '../components/Header'
 
 const Home: React.FC = () => {
 
   const layouts: Record<string, JSX.Element> = {
     mapa: <Map/>,
-    report: <p className='text-2xl'>andale</p>,
+    report: <Report />,
     chat: <p className='text-2xl'>zero miedo</p>
   }
 
@@ -18,10 +20,7 @@ const Home: React.FC = () => {
   return (
     <>
       <div className='w-[100%] h-[100vh] text-black bg-gray-900 relative'>
-        <nav className='w-[100%] h-[10vh] border-b-2 border-gray-600 py-3 px-5 flex place-items-center justify-between'>
-          <a href="/logout"><i className='bx bx-chevron-left text-4xl text-white'></i></a>
-          <img src='../assets/logo.png' alt='avatar' className='w-[50px] rounded-full' />
-        </nav>
+        <Header />
 
         <div className='w-[100%] h-[82vh] bg-gray-900 text-white grid grid-cols-1 place-items-center'>
           {layouts[currentComponent]}

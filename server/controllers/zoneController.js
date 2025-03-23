@@ -5,18 +5,20 @@ export default {
     reportZone: async (req, res) => {
         try {
 
-            const { dangerLevel, description, cordinates } = req.body
-            if (!dangerLevel || !description || !cordinates) return res.status(400).json({ "msg": "falta un dato" })
+            const { danger_level, description } = req.body
+            const coordinates = req.body.location.coordinates
+            if (!danger_level || !description || !coordinates) return res.status(400).json({ "msg": "falta un dato" })
 
             const newReport = {
-                dangerLevel: req.body.dangerLevel,
-                description: req.body.description,
+                danger_level: danger_level,
+                description: description,
                 location: {
-                    coordinates: req.body.coordinates
+                    coordinates: coordinates
                 }
             }
 
             await zoneModel.create(newReport)
+            console.log("se logro")
             return res.status(200).json({ "msg": "se levanto el reporte" })
  
         } catch (err) {
