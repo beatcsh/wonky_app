@@ -80,7 +80,7 @@ export default {
                 name: name,
                 email: email,
                 numberPhone: numberPhone
-            }
+            } 
 
             await userModel.findByIdAndUpdate(id_user, {
                 $push: {

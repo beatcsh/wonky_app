@@ -1,16 +1,42 @@
 import { IonTabButton } from '@ionic/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import Map from '../layouts/Map';
 import Report from '../layouts/Report';
-import Header from '../components/Header'
+import Header from '../components/Header';
+import AddContact from '../layouts/AddContact';
+import { useLocation } from "react-router";
+import { jwtDecode } from "jwt-decode";
+
+interface LocationStorage {
+  token?: string;
+}
+
+interface decodedToken {
+  _id: string;
+  exp: number;
+  iat: number;
+}
 
 const Home: React.FC = () => {
 
+  const location = useLocation<LocationStorage>();
+
+  const token = location.state?.token || localStorage.getItem("authToken");
+  console.log(token)
+
+  let userId = '0'
+
+  if (token) {
+    const decodedToken: decodedToken = jwtDecode(token);
+    userId = decodedToken._id;
+    console.log("id obtenido: " + userId + " y su tipo es: " + typeof (userId))
+  }
+
   const layouts: Record<string, JSX.Element> = {
-    mapa: <Map/>,
+    mapa: <Map />,
     report: <Report />,
-    chat: <p className='text-2xl'>zero miedo</p>
+    add_contact: <AddContact _id={userId}/>
   }
 
   const [currentComponent, setCurrentComponent] = useState<keyof typeof layouts>("mapa");
@@ -36,8 +62,8 @@ const Home: React.FC = () => {
           <IonTabButton className='font-semibold join-item btn bg-gray-900 border-0' tab="add-zone" onClick={() => setCurrentComponent("report")}>
             <i className='bx bx-current-location text-3xl !text-white'></i>
           </IonTabButton>
-          <IonTabButton className='font-semibold join-item btn bg-gray-900 border-0' tab="chat" onClick={() => setCurrentComponent("chat")}>
-            <i className='bx bx-chat text-3xl !text-white'></i>
+          <IonTabButton className='font-semibold join-item btn bg-gray-900 border-0' tab="chat" onClick={() => setCurrentComponent("add_contact")}>
+            <i className='bx bx-user-plus text-3xl !text-white'></i>
           </IonTabButton>
         </footer>
       </div>
