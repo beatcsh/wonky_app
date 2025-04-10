@@ -9,7 +9,6 @@ const BotonEmergencia: React.FC = () => {
     const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
 
     const handlePanicButtonClick = () => {
-        console.log("Botón de pánico presionado. Iniciando cuenta regresiva...");
 
         if (countdown === null) {
             setCountdown(10);
@@ -21,7 +20,7 @@ const BotonEmergencia: React.FC = () => {
     };
 
     const sendAlert = () => {
-        const phoneNumber = '524494593965'; // Este es solo el numero de prueba (el de uno de nosotros)
+        const phoneNumber = '524493662493';
 
         // Obtener la ubicación actual
         if (navigator.geolocation) {
@@ -36,24 +35,18 @@ const BotonEmergencia: React.FC = () => {
                     // Mensaje de emergencia con la ubicación
                     const message = `¡Ayuda! He enviado una alerta de pánico. Mi ubicación actual es: ${locationUrl}`;
 
-                    console.log(`Intentando enviar mensaje por WhatsApp a ${phoneNumber}: ${message}`);
-
                     // Enlace para enviar por WhatsApp
                     const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
 
                     // Abrir la URL en una nueva ventana o pestaña
                     window.open(whatsappUrl, '_blank'); // '_blank' abre en una nueva pestaña
                     setShowSentAlert(true);
-                    console.log('Mensaje de WhatsApp preparado con éxito.');
-                    console.log(whatsappUrl)
                 },
                 (error) => {
-                    console.error('Error obteniendo la ubicación: ', error);
                     setShowErrorAlert(true); // Mostrar alerta si hay error en la geolocalización
                 }
             );
         } else {
-            console.error('La geolocalización no está disponible en este navegador.');
             setShowErrorAlert(true); // Mostrar alerta si la geolocalización no está disponible
         }
 
@@ -69,7 +62,6 @@ const BotonEmergencia: React.FC = () => {
         }
         setCountdown(null); // Restablecer la cuenta regresiva
         setShowCancelAlert(false); // Cerrar el modal de cancelar
-        console.log('Alerta de pánico cancelada.');
     };
 
     const openCancelAlert = () => {
@@ -81,7 +73,6 @@ const BotonEmergencia: React.FC = () => {
             const interval = setInterval(() => {
                 setCountdown((prev) => {
                     const newCountdown = prev ? prev - 1 : 0;
-                    console.log(`Contador: ${newCountdown}`);
                     return newCountdown;
                 });
             }, 1000);

@@ -1,20 +1,10 @@
 import { useState } from "react";
 import { useHistory } from "react-router";
-import Swal from "sweetalert2";
 import axios from "axios";
-
-interface IUser {
-    name: String,
-    apePat: String,
-    apeMat: String,
-    email: String,
-    password: String,
-    numberPhone: String,
-    address: Object
-}
-
+import { IUser } from "../interfaces/Interfaces";
+ 
 const Register: React.FC = () => {
-
+ 
     const history = useHistory();
 
     const [data, setData] = useState<IUser>({
@@ -59,11 +49,11 @@ const Register: React.FC = () => {
             return
         }
         try {
-            await axios.post("http://localhost:4000/users/add", data)
+            await axios.post(`${import.meta.env.VITE_APP_API_URL}/users/add`, data)
             alert("Registro exitoso")
             history.push("/login")
         } catch (err: any) {
-            alert("No se pudo")
+            alert("No pudismos levantar el registro")
         }
     }
 

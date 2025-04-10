@@ -1,16 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-
-interface props {
-    _id: string
-}
-
-interface contact {
-    name: string
-    email: string
-    numberPhone: number
-}
-
+import { props, contact } from "../interfaces/Interfaces";
+ 
 const AddContact: React.FC<props> = ({ _id }) => {
 
     const [data, setData] = useState<contact>({
@@ -24,17 +15,16 @@ const AddContact: React.FC<props> = ({ _id }) => {
         const data_temp: any = data;
         data_temp[e.target.name] = e.target.value;
         setData(data_temp)
-        console.log(data)
     }
 
     const onSubmit = async () => {
         try {
-            await axios.put("http://localhost:4000/users/add-contact", data, {
+            await axios.put(`${import.meta.env.VITE_APP_API_URL}/users/add-contact`, data, {
                 params: { _id: _id }
             })
-            alert("se añadio el contacto de emergencia mi padre santo")
+            alert("Se añadio el contacto de emergencia")
         } catch (err: any) {
-            alert("tenemos pedillos");
+            alert("No se puede añadir el contacto por ahora");
             console.log(err)
         }
     }
@@ -52,6 +42,9 @@ const AddContact: React.FC<props> = ({ _id }) => {
                         onClick={() => onSubmit()} >
                         Añadir Contacto +
                     </button>
+                    <div className="px-10 text-justify">
+                        <p>Las autoridades correspondientes se pondran en contacto con las personas  que añadas, proporciona datos reales, por favor.</p>
+                    </div>
                 </div>
             </div>
         </>

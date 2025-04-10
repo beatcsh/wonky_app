@@ -1,42 +1,32 @@
 import { IonTabButton } from '@ionic/react';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import Map from '../layouts/Map';
+import axios from 'axios';
 import Report from '../layouts/Report';
 import Header from '../components/Header';
 import AddContact from '../layouts/AddContact';
 import { useLocation } from "react-router";
 import { jwtDecode } from "jwt-decode";
-
-interface LocationStorage {
-  token?: string;
-}
-
-interface decodedToken {
-  _id: string;
-  exp: number;
-  iat: number;
-}
+import { LocationStorage, decodedToken, props } from '../interfaces/Interfaces';
 
 const Home: React.FC = () => {
 
   const location = useLocation<LocationStorage>();
 
   const token = location.state?.token || localStorage.getItem("authToken");
-  console.log(token)
 
   let userId = '0'
 
   if (token) {
     const decodedToken: decodedToken = jwtDecode(token);
     userId = decodedToken._id;
-    console.log("id obtenido: " + userId + " y su tipo es: " + typeof (userId))
   }
 
   const layouts: Record<string, JSX.Element> = {
-    mapa: <Map />,
-    report: <Report />,
-    add_contact: <AddContact _id={userId}/>
+    mapa: <Map _id={userId} />,
+    report: <Report _id={userId} />,
+    add_contact: <AddContact _id={userId} />
   }
 
   const [currentComponent, setCurrentComponent] = useState<keyof typeof layouts>("mapa");
@@ -70,5 +60,5 @@ const Home: React.FC = () => {
     </>
   );
 };
-
+ 
 export default Home;

@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@capacitor/app": "6.0.2",
-    "@capacitor/core": "6.2.0",
+    "@capacitor/core": "^6.2.0",
     "@capacitor/haptics": "6.0.2",
     "@capacitor/keyboard": "6.0.3",
     "@capacitor/status-bar": "6.0.2",
@@ -26,6 +26,7 @@
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.8.1",
     "bootstrap": "^5.3.3",
+    "dotenv": "^16.4.7",
     "ionicons": "^7.0.0",
     "jwt-decode": "^4.0.0",
     "leaflet": "^1.9.4",
@@ -39,7 +40,7 @@
     "tailwindcss": "^4.0.9"
   },
   "devDependencies": {
-    "@capacitor/cli": "6.2.0",
+    "@capacitor/cli": "^6.2.0",
     "@testing-library/dom": ">=7.21.4",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",

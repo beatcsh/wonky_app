@@ -2,3 +2,4 @@
 /wonky_app/node_modules
 /server/.env
 /wonky_app/.env
+/wonky_app/dist

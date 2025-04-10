@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useHistory } from "react-router";
 // import Swal from "sweetalert2";
 import axios from "axios";
-
+ 
 const Login: React.FC = () => {
     const [data, setData] = useState({});
     const history = useHistory();
@@ -14,17 +14,16 @@ const Login: React.FC = () => {
 
     const onSubmit = async () => {
         try {
-            console.log("mandando datos")
 
-            const response = await axios.post("http://localhost:4000/users/login", data);
-            console.log("se pudo")
+            const response = await axios.post(`${import.meta.env.VITE_APP_API_URL}/users/login`, data);
+            alert("Bienvenido de nuevo")
 
             const authToken = response.data.token;
             localStorage.setItem("authToken", authToken);
             history.push("/home",{ token: authToken })
 
         } catch (err: any) {
-            console.log("no se pudo")
+            alert("No se pudo iniciar la sesion")
         }
     };
 

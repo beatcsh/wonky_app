@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { GoogleMap, Marker } from '@react-google-maps/api';
+import { props } from '../interfaces/Interfaces';
 
 const mapContainerStyle = {
     width: '90%',
@@ -12,12 +13,13 @@ const center = {
     lat: 21.9311352,
     lng: -102.2662378,
 };
-
-const Report: React.FC = () => {
+ 
+const Report: React.FC<props> = ({ _id }) => {
 
     const [selectedLocation, setSelectedLocation] = useState<{ lat: number; lng: number } | null>(null);
-    const [danger_level, setDangerLevel] = useState<string>('');
+    const [danger_level, setDangerLevel] = useState<string>('low');
     const [description, setDescription] = useState<string>('');
+    const user_id = _id
 
 
     const handleMapClick = (event: google.maps.MapMouseEvent) => {
@@ -31,24 +33,31 @@ const Report: React.FC = () => {
 
     const handleSubmit = async () => {
         if (selectedLocation) {
+
+            if (!danger_level || !description || !selectedLocation) {
+                alert("Por favor completa todos los campos");
+                return;
+            }
+
             const zoneData = {
                 location: {
                     coordinates: [selectedLocation.lng, selectedLocation.lat],
                 },
                 danger_level,
                 description,
+                user_id
             };
 
             try {
                 console.log(zoneData)
-                const response = await axios.post('http://localhost:4000/zones/add', zoneData);
-                if (response) alert("se logro");
+                const response = await axios.post(`${import.meta.env.VITE_APP_API_URL}/zones/add`, zoneData);
+                if (response) alert("Se levanto el reporte");
                 // Reset form
                 setDangerLevel('');
                 setDescription('');
                 setSelectedLocation(null);
             } catch (error) {
-                console.error('Error:', error);
+                alert("No se leanto el reporte de forma correcta");
             }
         }
     };

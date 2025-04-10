@@ -1,5 +1,5 @@
-import BotonEmergencia from "../components/BotonEmergencia";
-
+import BotonEmergencia from "../components/EmergencyButton";
+ 
 const Start: React.FC = () => {
     return (
         <>
